@@ -1,10 +1,9 @@
-from masks import get_mask_card_number
-from masks import get_mask_account
+from masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(user_input: str) -> str:
     """Функция, которая возвращает замаскированный номер карты или счета"""
-    user_input_split = user_input.split(' ')   # разделение введенных данных по пробелам
+    user_input_split = user_input.split(" ")  # разделение введенных данных по пробелам
     type_user_card = " ".join(user_input_split[0:-1])  # занесение в переменную тип карты/счет
     if len(user_input_split[-1]) == 16:
         return f"{type_user_card} {get_mask_card_number(int(user_input_split[-1]))}"
@@ -15,14 +14,14 @@ def mask_account_card(user_input: str) -> str:
 def get_date(date: str) -> str:
     """Функция, которая преобразует дату в формат ДД.ММ.ГГГГ"""
     formatted_date = []
-    split_date = date.split('-')
+    split_date = date.split("-")
     formatted_date.append(split_date[2][:2])
     formatted_date.append(split_date[1])
     formatted_date.append(split_date[0])
     return ".".join(formatted_date)
 
 
-user_input = input('Введите данные карты или счета: ')
+user_input = input("Введите данные карты или счета: ")
 print(mask_account_card(user_input))
-user_date = input('Введите дату: ')
+user_date = input("Введите дату: ")
 print(get_date(user_date))
