@@ -15,7 +15,7 @@ def get_mask_account(account_number: int) -> str:
         return "Введенного номера счета не существует"
 
 
-user_card_number = int(input("Введите номер карты: "))
-print(get_mask_card_number(user_card_number))
-user_account_number = int(input("Введите номер cчета: "))
-print(get_mask_account(user_account_number))
+#user_card_number = int(input("Введите номер карты: "))
+get_mask_card_number(7000792289606361)
+#user_account_number = int(input("Введите номер cчета: "))
+get_mask_account(73654108430135874305)
