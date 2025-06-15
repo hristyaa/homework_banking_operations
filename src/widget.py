@@ -13,7 +13,7 @@ def mask_account_card(user_input: str) -> str:
         return f"{type_user_card} {get_mask_account(int(user_input_split[-1]))}"
 
 
-def get_date(date: str) -> str:
+def get_date(date: str) -> datetime:
     """Функция, которая преобразует дату в формат ДД.ММ.ГГГГ"""
     date_obj = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%f")
     return date_obj.strftime("%d.%m.%Y")
@@ -22,4 +22,4 @@ def get_date(date: str) -> str:
 # user_input = input("Введите данные карты или счета: ")
 # print(mask_account_card(user_input))
 # user_date = input("Введите дату: ")
-print(get_date("2019-07-03T18:35:29.512364"))
+# print(get_date("2019-07-03T18:35:29.512364"))
