@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from masks import get_mask_account, get_mask_card_number
 
 
@@ -13,15 +15,11 @@ def mask_account_card(user_input: str) -> str:
 
 def get_date(date: str) -> str:
     """Функция, которая преобразует дату в формат ДД.ММ.ГГГГ"""
-    formatted_date = []
-    split_date = date.split("-")
-    formatted_date.append(split_date[2][:2])
-    formatted_date.append(split_date[1])
-    formatted_date.append(split_date[0])
-    return ".".join(formatted_date)
+    date_obj = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%f")
+    return date_obj.strftime("%d.%m.%Y")
 
 
-user_input = input("Введите данные карты или счета: ")
-print(mask_account_card(user_input))
-user_date = input("Введите дату: ")
-print(get_date(user_date))
+# user_input = input("Введите данные карты или счета: ")
+# print(mask_account_card(user_input))
+# user_date = input("Введите дату: ")
+print(get_date("2019-07-03T18:35:29.512364"))
