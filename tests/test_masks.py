@@ -28,5 +28,26 @@ def test_get_mask_card_number_invalid_card_number_lenght():
         get_mask_card_number(7000792289604785123)
 
 
+def test_get_mask_account():
+    """Тестирование правильности маскирования номера счета"""
+    assert get_mask_account(73654108430135874305) == '**4305'
 
 
+@pytest.mark.parametrize('account_number, expected', [(73654108430135877894, '**7894'),
+                                                (73654108430135870001, '**0001'),
+                                                ('73654108430135877777', '**7777')])
+def test_get_mask_account_1(account_number, expected):
+    """Проверка работы функции на различных форматах входных данных номеров счета"""
+    assert get_mask_account(account_number) == expected
+
+
+def test_get_mask_card_account_invalid_account_number_0():
+    """Проверка, что функция корректно обрабатывает входные строки, где отсутствует номер карты"""
+    with pytest.raises(ValueError):
+        get_mask_account('')
+
+
+def test_get_mask_card_account_invalid_account_number_lenght():
+    """Проверка, что функция корректно обрабатывает входные строки, где длина номера карты неправильная"""
+    with pytest.raises(ValueError):
+        get_mask_account(7000792289604785123)
