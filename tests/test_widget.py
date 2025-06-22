@@ -20,3 +20,20 @@ def test_mask_account_card_invalid_account_card():
     with pytest.raises(ValueError):
         mask_account_card('Visa Platinum 7361254108430135870001')
 
+
+@pytest.mark.parametrize('date, expected',
+                         [('2024-03-11T02:26:18.671407', '11.03.2024'),
+                          ('2025-07-20T02:22:13.141427', '20.07.2025'),
+                          ('2021-07-17T02:24:17.175407', '17.07.2021')])
+def test_get_date(date, expected):
+    """Проверка, что функция корректно обрабатывает различных входные данные"""
+    get_date(date) == expected
+def test_get_date_invalid_date():
+    """Проверка, что функция корректно обрабатывает входные строки, где отсутствует дата"""
+    with pytest.raises(ValueError):
+        get_date('')
+
+def test_get_date_invalid_date_1():
+    """Проверка, что функция корректно обрабатывает входные строки, где отсутствует дата"""
+    with pytest.raises(ValueError):
+        get_date('2078945115')
