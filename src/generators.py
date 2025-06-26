@@ -92,3 +92,10 @@ for _ in range(len(transactions)):
         print("Больше нет транзакций в USD")
         break
 
+usd_transactions = filter_by_currency(transactions, "руб.")
+for _ in range(len(transactions)):
+    try:
+        print(next(usd_transactions))
+    except StopIteration:
+        print("Больше нет транзакций в руб.")
+        break
