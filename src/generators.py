@@ -104,16 +104,16 @@ def transaction_descriptions(transactions):
 #     print(next(descriptions))
 
 
-def card_number_generator(a, b):
+def card_number_generator(start, stop):
     """Функция генерирует номер банковской карты в формате XXXX XXXX XXXX XXXX"""
-    if not (1 <= a <= 9999999999999999):
+    if not (1 <= start <= 9999999999999999):
         raise ValueError("Начальный номер должен быть от 1 до 9999999999999999")
-    if b < a:
+    if stop < start:
         raise ValueError("Конечный номер не может быть меньше начального")
-    if b > 9999999999999999:
+    if stop > 9999999999999999:
         raise ValueError("Максимальный номер карты - 9999999999999999")
 
-    numbers = range(a, b + 1)
+    numbers = range(start, stop + 1)
     for num in numbers:
         number = '0' * (16 - len(str(num))) + str(num)
         yield number[:4] + ' ' + number[4:8] + ' ' + number[8:12] + ' ' + number[12:]

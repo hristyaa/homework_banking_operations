@@ -1,6 +1,6 @@
 import pytest
 
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 @pytest.mark.parametrize(
@@ -127,7 +127,7 @@ def test_transaction_descriptions_absent_transactions(transactions):
         next(gen)
 
 
-@pytest.mark.parametrize("a, b, expected", [(1, 5, ['0000 0000 0000 0001',
+@pytest.mark.parametrize("start, stop, expected", [(1, 5, ['0000 0000 0000 0001',
                                                     '0000 0000 0000 0002',
                                                     '0000 0000 0000 0003',
                                                     '0000 0000 0000 0004',
@@ -136,28 +136,29 @@ def test_transaction_descriptions_absent_transactions(transactions):
                                                             '0000 0000 0007 4124',
                                                             '0000 0000 0007 4125'])
                                             ])
-def test_card_number_generator(a, b, expected):
-    """Проверка, что генератор выдает правильные номера карт в заданном диапазоне"""
-    result = list(card_number_generator(a, b))
+def test_card_number_generator(start, stop, expected):
+    """ Проверка, что генератор выдает правильные номера карт в заданном диапазоне"""
+    result = list(card_number_generator(start, stop))
     assert result == expected
 
+
 def test_card_number_generator_empty_range():
-    """Проверка, что функция корректно обрабатывает пустой диапазон """
-    gen = card_number_generator(71,71)
+    """ Проверка, что функция корректно обрабатывает пустой диапазон """
+    gen = card_number_generator(71,  71)
     assert next(gen) == "0000 0000 0000 0071"
     with pytest.raises(StopIteration):
         next(gen)
 
 
 def test_card_number_generator_extreme_values():
-    """Проверка, что функция корректно обрабатывает крайние значения """
-    assert next(card_number_generator(1,1)) == "0000 0000 0000 0001"
+    """ Проверка, что функция корректно обрабатывает крайние значения """
+    assert next(card_number_generator(1, 1)) == "0000 0000 0000 0001"
     assert next(card_number_generator(9999999999999999, 9999999999999999)) == "9999 9999 9999 9999"
 
 
 def test_card_number_generator_incorrect_range():
     """Проверка, что функция корректно обрабатывает неверный диапазон """
-    gen = card_number_generator(0,0)
+    gen = card_number_generator(0, 0)
     with pytest.raises(ValueError):
         next(gen)
     gen = card_number_generator(5, 1)
