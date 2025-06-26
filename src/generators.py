@@ -1,3 +1,5 @@
+#import random
+
 transactions = [
     {
         "id": 939719570,
@@ -84,22 +86,13 @@ def filter_by_currency(transactions, currency):
             yield transaction
 
 
-usd_transactions = filter_by_currency(transactions, "USD")
-for _ in range(len(transactions)):
-    try:
-        print(next(usd_transactions))
-    except StopIteration:
-        print("Больше нет транзакций в USD")
-        break
-
-
-usd_transactions = filter_by_currency(transactions, "руб.")
-for _ in range(len(transactions)):
-    try:
-        print(next(usd_transactions))
-    except StopIteration:
-        print("Больше нет транзакций в руб.")
-        break
+# usd_transactions = filter_by_currency(transactions, "USD")
+# for _ in range(len(transactions)):
+#     try:
+#         print(next(usd_transactions))
+#     except StopIteration:
+#         print("Больше нет транзакций в данной валюте")
+#         break
 
 
 def transaction_descriptions(transactions):
@@ -108,6 +101,17 @@ def transaction_descriptions(transactions):
         yield transaction['description']
 
 
-descriptions = transaction_descriptions(transactions)
-for _ in range(len(transactions)):
-    print(next(descriptions))
+# descriptions = transaction_descriptions(transactions)
+# for _ in range(len(transactions)):
+#     print(next(descriptions))
+
+
+def card_number_generator(a,b):
+    """Функция генерирует номер банковской карты в формате XXXX XXXX XXXX XXXX"""
+    numbers = range(a,b+1)
+    for num in numbers:
+        number = '0'*(16-len(str(num)))+str(num)
+        yield number[:4] + ' ' + number[4:8] + ' ' + number[8:12] + ' ' + number[12:]
+
+# for card_number in card_number_generator(1, 5):
+#     print(card_number)
