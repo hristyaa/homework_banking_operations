@@ -90,25 +90,39 @@ from src.generators import filter_by_currency, transaction_descriptions, card_nu
          ])
     ]
 )
-
-
 def test_filter_by_currency(transactions, currency, expected):
-    """Gроверка, что функция корректно фильтрует транзакции по заданной валюте"""
+    """Проверка, что функция корректно фильтрует транзакции по заданной валюте"""
     result = list(filter_by_currency(transactions, currency))
     assert result == expected
 
-@pytest.mark.parametrize("currency, expected", [('yuan', []), ('EUR', [])])
 
+@pytest.mark.parametrize("currency, expected", [('yuan', []), ('EUR', [])])
 def test_filter_by_currency_absent(transactions, currency, expected):
     """Проверка фильтрации отсутствующих валют"""
     result = list(filter_by_currency(transactions, currency))
     assert result == expected
 
-@pytest.mark.parametrize("transactions, currency, expected", [([], 'EUR', [])])
 
+@pytest.mark.parametrize("transactions, currency, expected", [([], 'EUR', [])])
 def test_filter_by_currency_absent_transactions(transactions, currency, expected):
     """Проверка фильтрации пустого списка транзакций"""
     result = list(filter_by_currency(transactions, currency))
     assert result == expected
 
+
+def test_transaction_descriptions(transactions):
+    """Проверка, что функция корректно отображает операции """
+    gen = transaction_descriptions(transactions)
+    assert next(gen) == 'Перевод организации'
+    assert next(gen) == 'Перевод со счета на счет'
+    assert next(gen) == 'Перевод со счета на счет'
+    assert next(gen) == 'Перевод с карты на карту'
+    assert next(gen) == 'Перевод организации'
+
+
+def test_transaction_descriptions_absent_transactions(transactions):
+    """Проверка, что функция корректно обрабатывает пустой список транзакций """
+    gen = transaction_descriptions([])
+    with pytest.raises(StopIteration):
+        next(gen)
 
