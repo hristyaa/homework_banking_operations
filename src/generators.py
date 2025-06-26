@@ -92,6 +92,7 @@ for _ in range(len(transactions)):
         print("Больше нет транзакций в USD")
         break
 
+
 usd_transactions = filter_by_currency(transactions, "руб.")
 for _ in range(len(transactions)):
     try:
@@ -99,3 +100,14 @@ for _ in range(len(transactions)):
     except StopIteration:
         print("Больше нет транзакций в руб.")
         break
+
+
+def transaction_descriptions(transactions):
+    """Функция возвращает из списка словарей транзакций описание каждой операции по очереди """
+    for transaction in transactions:
+        yield transaction['description']
+
+
+descriptions = transaction_descriptions(transactions)
+for _ in range(len(transactions)):
+    print(next(descriptions))
