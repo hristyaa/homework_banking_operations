@@ -1,5 +1,3 @@
-#import random
-
 transactions = [
     {
         "id": 939719570,
@@ -106,11 +104,11 @@ def transaction_descriptions(transactions):
 #     print(next(descriptions))
 
 
-def card_number_generator(a,b):
+def card_number_generator(a, b):
     """Функция генерирует номер банковской карты в формате XXXX XXXX XXXX XXXX"""
-    numbers = range(a,b+1)
+    numbers = range(a, b + 1)
     for num in numbers:
-        number = '0'*(16-len(str(num)))+str(num)
+        number = '0' * (16 - len(str(num))) + str(num)
         yield number[:4] + ' ' + number[4:8] + ' ' + number[8:12] + ' ' + number[12:]
 
 # for card_number in card_number_generator(1, 5):
