@@ -4,7 +4,7 @@ def get_mask_card_number(card_number: int) -> str:
         mask_card_number = str(card_number)[:4] + " " + str(card_number)[4:6] + "** **** " + str(card_number)[-4:]
         return mask_card_number
     else:
-        return "Введенного номера карты не существует"
+        raise ValueError("Введенного номера карты не существует")
 
 
 def get_mask_account(account_number: int) -> str:
@@ -12,7 +12,7 @@ def get_mask_account(account_number: int) -> str:
     if len(str(account_number)) == 20:  # проверка номера счета на правильность по количеству символов
         return "**" + str(account_number)[-4:]
     else:
-        return "Введенного номера счета не существует"
+        raise ValueError("Введенного номера счета не существует")
 
 
 # user_card_number = int(input("Введите номер карты: "))
