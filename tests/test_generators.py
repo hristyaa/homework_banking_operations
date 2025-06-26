@@ -126,3 +126,43 @@ def test_transaction_descriptions_absent_transactions(transactions):
     with pytest.raises(StopIteration):
         next(gen)
 
+
+@pytest.mark.parametrize("a, b, expected", [(1, 5, ['0000 0000 0000 0001',
+                                                    '0000 0000 0000 0002',
+                                                    '0000 0000 0000 0003',
+                                                    '0000 0000 0000 0004',
+                                                    '0000 0000 0000 0005']),
+                                            (74123, 74125, ['0000 0000 0007 4123',
+                                                            '0000 0000 0007 4124',
+                                                            '0000 0000 0007 4125'])
+                                            ])
+def test_card_number_generator(a, b, expected):
+    """Проверка, что генератор выдает правильные номера карт в заданном диапазоне"""
+    result = list(card_number_generator(a, b))
+    assert result == expected
+
+def test_card_number_generator_empty_range():
+    """Проверка, что функция корректно обрабатывает пустой диапазон """
+    gen = card_number_generator(71,71)
+    assert next(gen) == "0000 0000 0000 0071"
+    with pytest.raises(StopIteration):
+        next(gen)
+
+
+def test_card_number_generator_extreme_values():
+    """Проверка, что функция корректно обрабатывает крайние значения """
+    assert next(card_number_generator(1,1)) == "0000 0000 0000 0001"
+    assert next(card_number_generator(9999999999999999, 9999999999999999)) == "9999 9999 9999 9999"
+
+
+def test_card_number_generator_incorrect_range():
+    """Проверка, что функция корректно обрабатывает неверный диапазон """
+    gen = card_number_generator(0,0)
+    with pytest.raises(ValueError):
+        next(gen)
+    gen = card_number_generator(5, 1)
+    with pytest.raises(ValueError):
+        next(gen)
+    gen = card_number_generator(1, 10000000000000000)
+    with pytest.raises(ValueError):
+        next(gen)
