@@ -1,4 +1,5 @@
 import os
+
 import pytest
 
 from src.decorators import log
@@ -22,7 +23,6 @@ def test_log_exception(capsys):
     @log()
     def my_function(x, y):
         return x / y
-
 
     my_function(1, 0)
 
@@ -53,5 +53,3 @@ def test_log_in_file():
         text = file.read()
 
     assert text == "my_function ok, result: 0.5\n"
-
-
