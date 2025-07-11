@@ -128,14 +128,14 @@ def test_transaction_descriptions_absent_transactions(transactions):
 
 
 @pytest.mark.parametrize("start, stop, expected", [(1, 5, ['0000 0000 0000 0001',
-                                                    '0000 0000 0000 0002',
-                                                    '0000 0000 0000 0003',
-                                                    '0000 0000 0000 0004',
-                                                    '0000 0000 0000 0005']),
-                                            (74123, 74125, ['0000 0000 0007 4123',
-                                                            '0000 0000 0007 4124',
-                                                            '0000 0000 0007 4125'])
-                                            ])
+                                                           '0000 0000 0000 0002',
+                                                           '0000 0000 0000 0003',
+                                                           '0000 0000 0000 0004',
+                                                           '0000 0000 0000 0005']),
+                                                   (74123, 74125, ['0000 0000 0007 4123',
+                                                                   '0000 0000 0007 4124',
+                                                                   '0000 0000 0007 4125'])
+                                                   ])
 def test_card_number_generator(start, stop, expected):
     """ Проверка, что генератор выдает правильные номера карт в заданном диапазоне"""
     result = list(card_number_generator(start, stop))
@@ -144,7 +144,7 @@ def test_card_number_generator(start, stop, expected):
 
 def test_card_number_generator_empty_range():
     """ Проверка, что функция корректно обрабатывает пустой диапазон """
-    gen = card_number_generator(71,  71)
+    gen = card_number_generator(71, 71)
     assert next(gen) == "0000 0000 0000 0071"
     with pytest.raises(StopIteration):
         next(gen)
