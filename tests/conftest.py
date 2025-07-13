@@ -1,4 +1,5 @@
 import pytest
+import json
 
 # @pytest.fixture
 # def state():
@@ -118,3 +119,25 @@ def transactions():
             "to": "Счет 14211924144426031657"
         }
     ]
+
+
+@pytest.fixture()
+def empty_file_json():
+    with open('test_file.json', 'w', encoding='utf-8') as file:
+        file.write('')
+    return 'test_file.json'
+
+
+@pytest.fixture()
+def empty_list_json():
+    with open('test_file.json', 'w', encoding='utf-8') as file:
+        file.write('[]')
+    return 'test_file.json'
+
+
+@pytest.fixture()
+def transactions_json(transactions):
+    with open('test_file.json', 'w', encoding='utf-8') as file:
+        json.dump(transactions, file)
+    return 'test_file.json'
+
