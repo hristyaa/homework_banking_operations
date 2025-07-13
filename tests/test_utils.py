@@ -20,5 +20,6 @@ def test_get_transactions_list(transactions_json, transactions):
 
 
 def test_get_transactions_list_file_not_found():
+    """ Тест ошибки файл не найден"""
     result = get_transactions_list('file_non_existent.json')
     assert result == []

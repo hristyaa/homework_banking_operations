@@ -19,7 +19,8 @@ def get_amount_of_transaction(transaction):
                    "from": transaction["operationAmount"]["currency"]["code"], "to": "RUB"}
         headers = {"apikey": API_KEY}
         response = requests.get(url, headers=headers, params=payload)
-        # response = requests.get(f'https://api.apilayer.com/currency_data/convert?base=RUB&symbols=USD&amount={transaction['operationAmount']['amount']}')
+        if response.status_code != 200:
+            raise ValueError(f"Failed to get currency rate")
         return response.json()['result']
 
 
@@ -27,7 +28,7 @@ transaction = {
     "id": 114832369,
     "state": "EXECUTED",
     "date": "2019-12-07T06:17:14.634890",
-    "operationAmount": {"amount": "48150.39", "currency": {"name": "USD", "code": "USD"}},
+    "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
     "description": "Перевод организации",
     "from": "Visa Classic 2842878893689012",
     "to": "Счет 35158586384610753655",
