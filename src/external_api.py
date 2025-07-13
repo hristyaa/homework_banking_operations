@@ -1,5 +1,6 @@
 # from utils import get_transactions_list
 import os
+
 import requests
 from dotenv import load_dotenv
 
@@ -14,13 +15,13 @@ def get_amount_of_transaction(transaction):
     if transaction["operationAmount"]["currency"]["code"] == "RUB":
         return transaction["operationAmount"]["amount"]
     else:
-        url = f"https://api.apilayer.com/exchangerates_data/convert"
+        url = "https://api.apilayer.com/exchangerates_data/convert"
         payload = {"amount": transaction["operationAmount"]["amount"],
                    "from": transaction["operationAmount"]["currency"]["code"], "to": "RUB"}
         headers = {"apikey": API_KEY}
         response = requests.get(url, headers=headers, params=payload)
         if response.status_code != 200:
-            raise ValueError(f"Failed to get currency rate")
+            raise ValueError("Failed to get currency rate")
         return response.json()['result']
 
 

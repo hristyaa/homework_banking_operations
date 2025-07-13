@@ -1,6 +1,5 @@
-import pytest
-
 from src.utils import get_transactions_list
+
 
 def test_get_transactions_list_empty_file(empty_file_json):
     """ Тест при пустом файле"""
@@ -12,6 +11,7 @@ def test_get_transactions_list_empty_list(empty_list_json):
     """ Тест при файле, содержащем пустой список"""
     result = get_transactions_list(empty_list_json)
     assert result == []
+
 
 def test_get_transactions_list(transactions_json, transactions):
     """ Тест при файле, содержащем транзакции"""

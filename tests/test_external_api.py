@@ -1,6 +1,7 @@
-import pytest
 from unittest.mock import Mock, patch
-import requests
+
+import pytest
+
 from src.external_api import get_amount_of_transaction
 
 
@@ -17,8 +18,8 @@ def test_get_amount_of_transaction_usd(transaction_usd):
     mock_response.json.return_value = {"result": 6175436.115844}
 
     with patch('requests.get', return_value=mock_response):
-            result = get_amount_of_transaction(transaction_usd)
-            assert result == 6175436.115844
+        result = get_amount_of_transaction(transaction_usd)
+        assert result == 6175436.115844
 
 
 def test_get_amount_of_transaction_failed_request(transaction_usd):
