@@ -16,6 +16,7 @@ file_handler.setFormatter(file_formatter)
 utils_logger.addHandler(file_handler)
 utils_logger.setLevel(logging.DEBUG)
 
+
 def get_transactions_list(file_path):
     """Функция возвращает список словарей с данными о транзакций из json-файла"""
     utils_logger.info("Попытка открытия json-файла")
