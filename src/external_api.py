@@ -34,7 +34,7 @@ transaction = {
     "from": "Visa Classic 2842878893689012",
     "to": "Счет 35158586384610753655",
 }
-print(get_amount_of_transaction(transaction))
+# print(get_amount_of_transaction(transaction))
 
 # file_path = '../data/operations.json'
 # data_transactions = get_transactions_list(file_path)

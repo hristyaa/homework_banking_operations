@@ -179,3 +179,17 @@ def transaction_usd():
             "from": "Счет 19708645243227258542",
             "to": "Счет 75651667383060284188"
         }
+
+
+@pytest.fixture()
+def cvs_empty_file():
+    with open('test_file.cvs', 'w', encoding='utf-8') as file:
+        file.write('')
+    return 'test_file.cvs'
+
+
+@pytest.fixture()
+def excel_empty_file():
+    with open('test_file.xlsx', 'w', encoding='utf-8') as file:
+        file.write('')
+    return 'test_file.xlsx'
