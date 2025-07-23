@@ -1,16 +1,15 @@
 import json
-
 import logging
+import os
 
-utils_logger = logging.getLogger('app.utils')
+utils_logger = logging.getLogger("app.utils")
 
-file_handler = logging.FileHandler(
-    filename='../logs/utils.log',
-    mode='w',
-    encoding='utf-8'
-)
+log_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "logs"))
+os.makedirs(log_dir, exist_ok=True)
 
-file_formatter = logging.Formatter('%(asctime)s - %(filename)s - %(levelname)s - %(message)s')
+file_handler = logging.FileHandler(filename=os.path.join(log_dir, "utils.log"), mode="w", encoding="utf-8")
+
+file_formatter = logging.Formatter("%(asctime)s - %(filename)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
 
 utils_logger.addHandler(file_handler)
@@ -21,7 +20,7 @@ def get_transactions_list(file_path):
     """Функция возвращает список словарей с данными о транзакций из json-файла"""
     utils_logger.info("Попытка открытия json-файла")
     try:
-        with open(file_path, encoding='utf-8') as file:
+        with open(file_path, encoding="utf-8") as file:
             utils_logger.info("Файл успешно открылся")
             try:
                 utils_logger.info("Проверка содержимого json-файла")
