@@ -4,8 +4,9 @@ from collections import Counter
 def filter_by_state(banking_transaction_data: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Функция фильтрует список банковских операций по статусу."""
     new_list_data = []
+    target_state = str(state).upper()
     for operations_by_status in banking_transaction_data:
-        if operations_by_status.get("state") == state:
+        if str(operations_by_status.get("state")).upper() == target_state:
             new_list_data.append(operations_by_status)
     return new_list_data
 
@@ -28,7 +29,7 @@ def process_bank_search(banking_transaction_data:list[dict], search:str)->list[d
                 new_data.append(transaction)
         return new_data
     except Exception as ex:
-        return f'Возкникла ошибка:"{ex}"'
+        return f'Возникла ошибка:"{ex}"'
 
 
 def process_bank_operations(banking_transaction_data:list[dict], categories:list)->dict:

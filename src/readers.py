@@ -4,8 +4,8 @@ import pandas as pd
 def reader_csv_file(file_csv_path):
     """Функция считывает финансовые операции из CSV и выдает список словарей с транзакциями."""
     try:
-        transaction_csv = pd.read_csv(file_csv_path)
-        return transaction_csv.to_json(orient="records", indent=4)
+        transaction_csv = pd.read_csv(file_csv_path, encoding='utf-8', sep=';')
+        return transaction_csv.to_dict(orient="records")
 
     except FileNotFoundError:
         return "Файл не найден."
@@ -19,7 +19,7 @@ def reader_excel_file(file_excel_path):
     """Функция считывает финансовые операции из Excel и выдает список словарей с транзакциями."""
     try:
         transaction_excel = pd.read_excel(file_excel_path)
-        return transaction_excel.to_json(orient="records", indent=4)
+        return transaction_excel.to_dict(orient="records")
 
     except FileNotFoundError:
         return "Файл не найден."
@@ -33,8 +33,8 @@ def reader_excel_file(file_excel_path):
         return f"Произошла ошибка: {ex}."
 
 
-file_csv_path = "../data/transactions.csv"
-print(reader_csv_file(file_csv_path))
+# file_csv_path = "../data/transactions.csv"
+# print(reader_csv_file(file_csv_path))
 
 # file_excel_path = '../data/transactions_excel.xlsx'
 # print(reader_excel_file(file_excel_path))
