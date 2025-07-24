@@ -193,3 +193,13 @@ def excel_empty_file():
     with open('test_file.xlsx', 'w', encoding='utf-8') as file:
         file.write('')
     return 'test_file.xlsx'
+
+
+@pytest.fixture()
+def search():
+    return 'Перевод организации'
+
+
+@pytest.fixture()
+def categories():
+    return ['ПЕРевоД организации', 'перевод со счета на счет']
