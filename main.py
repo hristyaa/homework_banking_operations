@@ -2,9 +2,10 @@ from src.readers import reader_csv_file, reader_excel_file
 from src.utils import get_transactions_list
 from src.processing import filter_by_state, sort_by_date, process_bank_search, process_bank_operations
 from src.generators import filter_by_currency, filter_by_currency_code
+from src.widget import get_date, mask_account_card
 import os
 import json
-
+from datetime import datetime
 def greetings():
     """Функция приветствия"""
     while True:
@@ -104,8 +105,7 @@ if __name__ == '__main__':
             else:
                 print('Неверный ввод')
         while True:
-            user_input_description = input("""Отфильтровать список транзакций по определенному слову 
-в описании? Да/Нет
+            user_input_description = input("""Отфильтровать список транзакций по определенному слову в описании? Да/Нет
 """).lower()
             if user_input_description == 'да':
                 search = input("""Введите слово в описании для фильтрации
@@ -117,8 +117,39 @@ if __name__ == '__main__':
             else:
                 print('Неверный ввод')
         print('Распечатываю итоговый список транзакций...')
-        print(f'Всего банковских операций в выборке: {len(filtered_transactions)}')
-        print(filtered_transactions)
+
+        if len(filtered_transactions) == 0:
+            print('Не найдено ни одной транзакции, подходящей под ваши условия фильтрации')
+
+        print(f'Всего банковских операций в выборке: {len(filtered_transactions)}\n')
+
+        for filtered_transaction in filtered_transactions:
+            if filtered_transaction['description'] != 'Открытие вклада':
+                try:
+                    print(f"""{get_date(filtered_transaction["date"])} {filtered_transaction['description']}
+{mask_account_card(filtered_transaction['from'])} - > {mask_account_card(filtered_transaction['to'])}""")
+                except ValueError:
+                    date = datetime.strptime(filtered_transaction["date"], "%Y-%m-%dT%H:%M:%SZ")
+                    print(f"""{date.strftime("%d.%m.%Y")} {filtered_transaction['description']}
+{mask_account_card(filtered_transaction['from'])} - > {mask_account_card(filtered_transaction['to'])}""")
+                except Exception as ex:
+                    print(f'Произошла ошибка {ex}')
+            else:
+                try:
+                    print(f"""{get_date(filtered_transaction["date"])} {filtered_transaction['description']}
+{mask_account_card(filtered_transaction['to'])}""")
+                except ValueError:
+                    date = datetime.strptime(filtered_transaction["date"], "%Y-%m-%dT%H:%M:%SZ")
+                    print(f"""{date.strftime("%d.%m.%Y")} {filtered_transaction['description']}
+{mask_account_card(filtered_transaction['to'])}""")
+                except Exception as ex:
+                    print(f'Произошла ошибка {ex}')
+
+            if filtered_transaction.get('operationAmount') is not None:
+                print(f'Сумма: {filtered_transaction['operationAmount']['amount']} {filtered_transaction['operationAmount']['currency']['name']}\n')
+            else:
+                print(f'Сумма: {filtered_transaction['amount']} {filtered_transaction['currency_code']}\n')
+
     except Exception as ex:
         print(f'Произошла ошибка {ex}')
 
