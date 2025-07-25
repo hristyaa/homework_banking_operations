@@ -1,11 +1,12 @@
 from src.readers import reader_csv_file, reader_excel_file
 from src.utils import get_transactions_list
-from src.processing import filter_by_state, sort_by_date, process_bank_search, process_bank_operations
+from src.processing import filter_by_state, sort_by_date, process_bank_search
 from src.generators import filter_by_currency, filter_by_currency_code
 from src.widget import get_date, mask_account_card
 import os
-import json
 from datetime import datetime
+
+
 def greetings():
     """Функция приветствия"""
     while True:
@@ -37,6 +38,7 @@ def greetings():
             print('Произошла ошибка')
     print(f'Для обработки выбран {file_type}')
     return transactions
+
 
 def get_filtered_transaction(transactions):
     '''Функция выбора статуса для фильтрации'''
@@ -98,9 +100,8 @@ if __name__ == '__main__':
 
                 if flag == 0:
                     filtered_transactions = list(filter_by_currency(filtered_transactions, 'руб.'))
-
                 break
-            elif  user_input_rub == 'нет':
+            elif user_input_rub == 'нет':
                 break
             else:
                 print('Неверный ввод')
@@ -146,14 +147,11 @@ if __name__ == '__main__':
                     print(f'Произошла ошибка {ex}')
 
             if filtered_transaction.get('operationAmount') is not None:
-                print(f'Сумма: {filtered_transaction['operationAmount']['amount']} {filtered_transaction['operationAmount']['currency']['name']}\n')
+                print(
+                    f"Сумма: {filtered_transaction['operationAmount']['amount']} "
+                    f"{filtered_transaction['operationAmount']['currency']['name']}\n")
             else:
                 print(f'Сумма: {filtered_transaction['amount']} {filtered_transaction['currency_code']}\n')
 
     except Exception as ex:
         print(f'Произошла ошибка {ex}')
-
-
-
-
-

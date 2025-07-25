@@ -144,7 +144,7 @@ def test_process_bank_search_no_description(banking_transaction_data):
 
 def test_process_bank_search_exception():
     ''' Отработка функции с ошибкой при передачи функции вместо списка транзакций строки'''
-    result = process_bank_search('khkldfk', 'перевод')
+    process_bank_search('khkldfk', 'перевод')
     assert 'Возникла ошибка: "\'str\' object has no attribute \'get\'"'
 
 
@@ -160,5 +160,5 @@ def test_process_bank_operations_nothing(transactions):
 
 def test_process_bank_operations_exception(transactions):
     ''' Отработка функции с ошибкой при передачи функции вместо списка транзакций строки'''
-    result = process_bank_operations('khkldfk', 'перевод')
+    process_bank_operations('khkldfk', 'перевод')
     assert 'Возникла ошибка: "\'str\' object has no attribute \'get\'"'

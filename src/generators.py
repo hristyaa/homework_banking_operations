@@ -83,6 +83,7 @@ def filter_by_currency(transactions, currency):
         if transaction['operationAmount']['currency']['name'] == currency:
             yield transaction
 
+
 def filter_by_currency_code(transactions, currency):
     """ Функция фильтрует список словарей, представляющих транзакции по заданной валюте"""
     for transaction in transactions:

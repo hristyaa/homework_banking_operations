@@ -1,6 +1,7 @@
 import re
 from collections import Counter
 
+
 def filter_by_state(banking_transaction_data: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Функция фильтрует список банковских операций по статусу."""
     new_list_data = []
@@ -19,7 +20,7 @@ def sort_by_date(banking_transaction_data: list[dict], reverse: bool = True) -> 
     return sorted_banking_transaction_data
 
 
-def process_bank_search(banking_transaction_data:list[dict], search:str)->list[dict]:
+def process_bank_search(banking_transaction_data: list[dict], search: str) -> list[dict]:
     """ Функция возвращает список словарей транзакций, в которых в описании есть данная строка"""
     try:
         pattern = re.compile(search, re.IGNORECASE)
@@ -32,18 +33,21 @@ def process_bank_search(banking_transaction_data:list[dict], search:str)->list[d
         return f'Возникла ошибка:"{ex}"'
 
 
-def process_bank_operations(banking_transaction_data:list[dict], categories:list)->dict:
-    """ Функция возвращает словарь, в котором ключи - это названия категорий операций, а значения - количество операций в каждой категории"""
+def process_bank_operations(banking_transaction_data: list[dict], categories: list) -> dict:
+    """
+    Функция возвращает словарь, в котором ключи - это названия категорий операций,
+    а значения - количество операций в каждой категории
+    """
     try:
         categories_lower = [category.lower() for category in categories]
-        descriptions = [transaction.get('description') for transaction in banking_transaction_data if transaction.get('description').lower() in categories_lower]
+        descriptions = [transaction.get('description') for transaction in banking_transaction_data if
+                        transaction.get('description').lower() in categories_lower]
         counter = Counter()
         for description in descriptions:
             counter[description] += 1
         return dict(counter)
     except Exception as ex:
         return f"Произошла ошибка {ex}"
-
 
 # print(
 #     process_bank_operations(

@@ -18,7 +18,8 @@ mask_logger.setLevel(logging.DEBUG)
 def get_mask_card_number(card_number: int) -> str:
     """Функция, которая возвращает маску номера карты  по правилу XXXX XX** **** XXXX"""
     mask_logger.info("Проверка номера карта на правильность по количеству символов")
-    if len(str(card_number)) == 16 or len(str(card_number)) == 15:  # проверка номера карта на правильность по количеству символов
+    if len(str(card_number)) == 16 or len(str(card_number)) == 15:
+        # проверка номера карта на правильность по количеству символов
         mask_logger.info("Маскировка номера карты")
         mask_card_number = str(card_number)[:4] + " " + str(card_number)[4:6] + "** **** " + str(card_number)[-4:]
         return mask_card_number
@@ -30,7 +31,8 @@ def get_mask_card_number(card_number: int) -> str:
 def get_mask_account(account_number: int) -> str:
     """Функция, которая возвращает маску номера счета пользователя по правилу **XXXX"""
     mask_logger.info("Проверка номера счета на правильность по количеству символов")
-    if len(str(account_number)) == 20 or len(str(account_number)) == 19:  # проверка номера счета на правильность по количеству символов
+    if len(str(account_number)) == 20 or len(str(account_number)) == 19:
+        # проверка номера счета на правильность по количеству символов
         mask_logger.info("Маскировка номера счета")
         return "**" + str(account_number)[-4:]
     else:
