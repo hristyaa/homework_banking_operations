@@ -56,4 +56,4 @@ def test_get_mask_card_account_invalid_account_number_0():
 def test_get_mask_card_account_invalid_account_number_lenght():
     """Проверка, что функция корректно обрабатывает входные строки, где длина номера карты неправильная"""
     with pytest.raises(ValueError):
-        get_mask_account(7000792289604785123)
+        get_mask_account(700079228960478512300)
