@@ -84,6 +84,12 @@ def filter_by_currency(transactions, currency):
             yield transaction
 
 
+def filter_by_currency_code(transactions, currency):
+    """ Функция фильтрует список словарей, представляющих транзакции по заданной валюте"""
+    for transaction in transactions:
+        if transaction['currency_code'] == currency:
+            yield transaction
+
 # usd_transactions = filter_by_currency(transactions, "USD")
 # for _ in range(len(transactions)):
 #     try:

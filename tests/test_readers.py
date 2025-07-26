@@ -7,7 +7,7 @@ from src.readers import reader_csv_file, reader_excel_file
 def test_reader_csv_file(mock_read_csv):
     """Тест при cvc файле c данными"""
 
-    mock_read_csv.return_value.to_json.return_value = """[
+    mock_read_csv.return_value.to_dict.return_value = """[
         {
             "id": 142264268,
             "state": "EXECUTED",
@@ -53,7 +53,7 @@ def test_reader_csv_file_file_not_found():
 def test_reader_excel_file(mock_read_excel):
     """Тест при excel файле c данными"""
 
-    mock_read_excel.return_value.to_json.return_value = """[
+    mock_read_excel.return_value.to_dict.return_value = """[
         {
             "id": 142264268,
             "state": "EXECUTED",
